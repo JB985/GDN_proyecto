@@ -68,9 +68,14 @@ class Programa_Formacion(models.Model):
     version = models.CharField(max_length=255, null=False)
 
 class Ficha(models.Model):
+    
+    ETAPAS = [
+        ('Lectiva', 'Lectiva'),
+        ('Productiva', 'Productiva'),
+    ]
     num_ficha = models.CharField(max_length=255, unique=True, null=False)
     name = models.CharField(max_length=255, null=False)
-    etapa = models.CharField(max_length=255, null=False)
+    etapa = models.CharField(max_length=255, null=False, choices=ETAPAS, default='Lectiva')
     fecha_inicio = models.DateField(null=False)
     fecha_fin = models.DateField(null=False)
     prog = models.ForeignKey(Programa_Formacion, on_delete=models.CASCADE, null=False)
