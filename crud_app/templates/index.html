@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido señor(a) {{ user.first_name }} {{ user.last_name }}</h1>
+        {% if user.is_authenticated %}
+            <p class="lead">Iniciaste como: {{ user.username }}</p>
+            <p>Rol: {{ user.role.name }}</p>
+        {% else %}
+            <p class="lead">Por favor registrese o inicie sesion en el sistema.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+            <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Registrate</a>
+        {% endif %}
+    </div>
+{% endblock %}

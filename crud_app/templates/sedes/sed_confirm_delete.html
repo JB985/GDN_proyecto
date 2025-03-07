@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load form_tags %}
+
+{% block content %}
+    <h2>Confirmar eliminacion</h2>
+    <div class="alert alert-danger" role="alert">
+        ¿Seguro de que quieres eliminar la sede?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'sedes_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

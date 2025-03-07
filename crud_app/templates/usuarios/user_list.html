@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de usuarios</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre de usuario</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{% url 'user_detail' user.pk %}">{{ user.username }}</a></td>
+                <td>{{ user.role.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

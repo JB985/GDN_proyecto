@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load form_tags %}
+
+{% block content %}
+    <h2>Confirmar eliminacion</h2>
+    <div class="alert alert-danger" role="alert">
+        Estas seguro de eliminar el rol <strong>{{ role.name }}</strong>?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'role_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

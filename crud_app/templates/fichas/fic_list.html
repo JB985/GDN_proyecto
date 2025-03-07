@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de fichas</h2>
+    <a href="{% url 'create_ficha' %}" class="btn btn-primary mb-3">Crear ficha</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Numero de ficha</th>
+                <th>Nombre</th>
+                <th>Etapa</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de fin</th>
+                <th>Programa de formacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in fichas %}
+            <tr>
+                <td>{{ f.num_ficha }}</td>
+                <td>{{ f.name }}</td>
+                <td>{{ f.etapa }}</td>
+                <td>{{ f.fecha_inicio }}</td>
+                <td>{{ f.fecha_fin }}</td>
+                <td>{{ f.prog.name }}</td>
+                <td>
+                    <a href="{% url 'edit_ficha' f.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'delete_ficha' f.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

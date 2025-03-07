@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de centros de formacion</h2>
+    <a href="{% url 'center_create' %}" class="btn btn-primary mb-3">Crear centro de formacion</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>NIT</th>
+                <th>Nombre</th>
+                <th>Region</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in centers %}
+            <tr>
+                <td>{{ c.nit }}</td>
+                <td>{{ c.name }}</td>
+                <td>{{ c.reg.name }}</td>
+                <td>
+                    <a href="{% url 'center_edit' c.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'center_delete' c.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

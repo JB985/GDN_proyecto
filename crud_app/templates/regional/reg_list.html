@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de regiones</h2>
+    <a href="{% url 'region_create' %}" class="btn btn-primary mb-3">Crear region</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in regions %}
+            <tr>
+                <td>{{ r.cod_reg }}</td>
+                <td>{{ r.name }}</td>
+                <td>
+                    <a href="{% url 'region_edit' r.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'region_delete' r.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

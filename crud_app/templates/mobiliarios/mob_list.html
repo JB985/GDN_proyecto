@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de mobiliarios</h2>
+    <a href="{% url 'mobiliary_create' %}" class="btn btn-primary mb-3">Crear nuevo mobiliario</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Fecha de adquisicion</th>
+                <th>Numero de placa</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in mobiliaries %}
+            <tr>
+                <td>{{ m.name }}</td>
+                <td>{{ m.desc }}</td>
+                <td>{{ m.ad_date }}</td>
+                <td>{{ m.num_placa_almacen }}</td>
+                <td>${{ m.price }}</td>
+                <td>{{ m.cat.name }}</td>
+                <td>
+                    <a href="{% url 'mobiliary_edit' m.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'mobiliary_delete' m.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

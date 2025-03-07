@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Detalles de usuario</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.username }}</h5>
+            <p class="card-text">Nombre de usuario: {{ user.username }}</p>
+            <p class="card-text">Nombre: {{ user.first_name }}</p>
+            <p class="card-text">Apellido: {{ user.last_name }}</p>
+            <p class="card-text">Rol: {{ user.role.name }}</p>
+            <p class="card-text">Correo: {{ user.email }}</p>
+            <p class="card-text">Numero de documento: {{user.num_documento}}</p>
+            <p class="card-text">Tipo de documento: {{ user.tip_documento }}</p>
+            <p class="card-text">Telefono: {{ user.phone }}</p>
+            <a href="{% url 'user_edit' user.pk %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'user_delete' user.pk %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'user_list' %}" class="btn btn-secondary">Regresar</a>
+        </div>
+    </div>
+{% endblock %}

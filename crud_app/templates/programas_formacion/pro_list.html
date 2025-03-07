@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de programas de formacion</h2>
+    <a href="{% url 'create_program' %}" class="btn btn-primary mb-3">Crear programa de formacion</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Horas</th>
+                <th>Version</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in programs %}
+            <tr>
+                <td>{{ p.cod_prog }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.hours }} Horas.</td>
+                <td>{{ p.version }}</td>
+                <td>
+                    <a href="{% url 'edit_program' p.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'delete_program' p.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
