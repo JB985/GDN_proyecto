@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
     tip_documento = models.CharField(max_length=100, null=False, choices=TIPO_DOCUMENTO, default='CC')
     num_documento = models.CharField(max_length=10, null=False)
     phone = models.CharField(max_length=10, null=False)
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, default='APRENDIZ')
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, default='APRENDIZ')
 
     def __str__(self):
         return self.username
@@ -79,3 +79,14 @@ class Ficha(models.Model):
     fecha_inicio = models.DateField(null=False)
     fecha_fin = models.DateField(null=False)
     prog = models.ForeignKey(Programa_Formacion, on_delete=models.CASCADE, null=False)
+
+class Ambiente(models.Model):
+    TIPO_AMBIENTE = [
+        ('Tecnologico', 'Tecnologico'),
+        ('No tecnologico', 'No tecnologico'),
+        ('Ambiente virtual', 'Ambiente virtual'),
+        ('Normal', 'Normal')
+    ]
+    num_ambiente = models.IntegerField(null=False, default='000')
+    sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
+    tipo_ambiente = models.CharField(max_length=255, null=False, choices=TIPO_AMBIENTE, default='Normal')
