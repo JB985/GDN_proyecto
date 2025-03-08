@@ -14,7 +14,7 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'crud_app.CustomUser'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'archivos_de_novedades'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
