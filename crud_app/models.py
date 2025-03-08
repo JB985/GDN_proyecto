@@ -102,3 +102,15 @@ class Novedad(models.Model):
     fecha = models.DateField(auto_now_add=True)
     tipo_novedad = models.CharField(max_length=255, null=False, choices=TIPO_NOVEDAD, default='Academica')
     evidencia = models.FileField(upload_to='evidencias/')
+
+class Provincia(models.Model):
+    cod_prov = models.CharField(max_length=255, unique=True, null=False)
+    nombre = models.CharField(max_length=255, null=False)
+    
+    def __str__(self):
+        return self.nombre
+
+class Ciudad(models.Model):
+    cod_ciudad = models.CharField(max_length=255, unique=True, null=False)
+    nombre = models.CharField(max_length=255, null=False)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, null=False)
