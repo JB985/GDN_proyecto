@@ -1,5 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import os
+import logging
+
+def user_directory_path(instance, filename):
+    return f"evidencia/archivos/{instance.id}_{filename}"
+
+
+# Configuración del logger
+logger = logging.getLogger(__name__)
 
 class Role(models.Model):
     id = models.AutoField(primary_key=True)
@@ -102,6 +111,18 @@ class Novedad(models.Model):
     fecha = models.DateField(auto_now_add=True)
     tipo_novedad = models.CharField(max_length=255, null=False, choices=TIPO_NOVEDAD, default='Academica')
     evidencia = models.FileField(upload_to='evidencias/')
+    
+    def eliminar_archivo(self):
+        self.evidencia.delete(save=False)
+        os.remove(self.evidencia.path)
+    def __str__(self):
+        return self.titulo
+    
+    def save(self, *args, **kwargs):
+        if self.evidencia:
+            logger.info(f"Eliminando archivo: {self.evidencia}")
+            self.eliminar_archivo()
+        super().save(*args, **kwargs)
 
 class Provincia(models.Model):
     cod_prov = models.CharField(max_length=255, unique=True, null=False)
