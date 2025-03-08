@@ -406,9 +406,9 @@ def ambiente_create(request):
         if form.is_valid():
             form.save()
             return redirect('ambientes_list')
-        else:
-            form = AmbienteForm()
-        return render(request, 'ambientes/amb_form.html', {'form': form})
+    else:
+        form = AmbienteForm()
+    return render(request, 'ambientes/amb_form.html', {'form': form})
 
 @login_required
 def ambiente_edit(request, pk):
@@ -420,12 +420,13 @@ def ambiente_edit(request, pk):
             return redirect('ambientes_list')
         else:
             form = AmbienteForm(instance=ambiente)
-        return render(request, 'ambientes/amb_form.html', {'form': form})
+            return render(request, 'ambientes/amb_form.html', {'form': form})
 
 @login_required
 def ambiente_delete(request, pk):
+    ambiente = Ambiente.objects.get(pk=pk)
     if request.method == 'POST':
-        ambiente = Ambiente.objects.get(pk=pk)
         ambiente.delete()
         return redirect('ambientes_list')
-    return render(request, 'ambientes/amb_confirm_delete.html', {'ambiente': ambiente})
+    else:
+        return render(request, 'ambientes/amb_confirm_delete.html', {'ambiente': ambiente})

@@ -30,7 +30,7 @@ class CustomUser(AbstractUser):
     tip_documento = models.CharField(max_length=100, null=False, choices=TIPO_DOCUMENTO, default='CC')
     num_documento = models.CharField(max_length=10, null=False)
     phone = models.CharField(max_length=10, null=False)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, default='APRENDIZ')
+    role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, default='2')
 
     def __str__(self):
         return self.username
