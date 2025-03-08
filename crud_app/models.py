@@ -90,3 +90,15 @@ class Ambiente(models.Model):
     num_ambiente = models.IntegerField(null=False, default='000')
     sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
     tipo_ambiente = models.CharField(max_length=255, null=False, choices=TIPO_AMBIENTE, default='Normal')
+
+class Novedad(models.Model):
+    TIPO_NOVEDAD = [
+        ('Academica', 'Academica'),
+        ('Disciplinaria', 'Disciplinaria'),
+        ('Ambiente', 'Ambiente')
+    ]
+    titulo = models.CharField(max_length=100, null=False)
+    descripcion = models.TextField(blank=True)
+    fecha = models.DateField(auto_now_add=True)
+    tipo_novedad = models.CharField(max_length=255, null=False, choices=TIPO_NOVEDAD, default='Academica')
+    evidencia = models.FileField(upload_to='evidencias/')

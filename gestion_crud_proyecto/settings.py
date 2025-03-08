@@ -13,6 +13,8 @@ SECRET_KEY = 'django-insecure-%ssaowfz#)f!kcdp3(uu%+lu*0%i_hkn9)bh^2+hn)k_!v1xu9
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'crud_app.CustomUser'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
