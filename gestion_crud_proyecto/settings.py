@@ -15,6 +15,9 @@ LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'crud_app.CustomUser'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'archivos_de_novedades'
+SESSION_COOKIE_AGE = 600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
