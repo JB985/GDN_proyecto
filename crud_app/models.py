@@ -111,6 +111,7 @@ class Novedad(models.Model):
     fecha = models.DateField(auto_now_add=True)
     tipo_novedad = models.CharField(max_length=255, null=False, choices=TIPO_NOVEDAD, default='Academica')
     evidencia = models.FileField(upload_to='evidencias/')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, blank=True)
     
     def eliminar_archivo(self):
         self.evidencia.delete(save=False)
