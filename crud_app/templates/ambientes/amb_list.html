@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de categorias</h2>
+    <a href="{% url 'ambientes_create' %}" class="btn btn-primary mb-3">Crear nuevo ambeinte</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Numero de ambiente</th>
+                <th>Sede</th>
+                <th>Tipo de ambiente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in ambientes %}
+            <tr>
+                <td>{{ a.num_ambiente }}</td>
+                <td>{{ a.sede.name }}</td>
+                <td>{{ a.tip_ambiente }}</td>
+                <td>
+                    <a href="{% url 'ambientes_edit' a.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'ambientes_delete' a.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
