@@ -66,3 +66,24 @@ class FichaForm(forms.ModelForm):
             'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),
             'fecha_fin': forms.DateInput(attrs={'type': 'date'})
         }
+
+class AmbienteForm(forms.ModelForm):
+    class Meta:
+        model = Ambiente
+        fields = ['num_ambiente', 'sede', 'tipo_ambiente']
+        widgets = {
+            'num_ambiente': forms.TextInput(),
+            'tipo_ambiente': forms.Select(),
+            'sede': forms.Select()
+        }
+
+class NovedadForm(forms.ModelForm):
+    class Meta:
+        model = Novedad
+        fields = ['titulo', 'descripcion', 'tipo_novedad', 'evidencia']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'tipo_novedad': forms.Select(attrs={'class': 'form-control'}),
+            'evidencia': forms.ClearableFileInput({'class': 'form-control'})
+        }
