@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from .models import *
 from .forms import *
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 
 @login_required
 def index(request):
@@ -50,6 +50,22 @@ def user_delete(request, pk):
         user.delete()
         return redirect('user_list')
     return render(request, 'usuarios/user_confirm_delete.html', {'user': user})
+
+@login_required
+def change_password(request, pk):
+    user = get_object_or_404(CustomUser, pk=pk)
+    if request.method == 'POST':
+        form = PasswordChangeForm(user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user_detail', pk=pk)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(user)
+    return render(request, 'usuarios/user_cambio_contra.html', {'form': form})
 
 @login_required
 def role_list(request):
