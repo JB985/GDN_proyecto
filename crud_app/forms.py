@@ -5,7 +5,7 @@ from .models import *
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'tip_documento', 'num_documento', 'phone', 'role')
+        fields = ('username', 'first_name', 'last_name', 'email', 'tip_documento', 'num_documento', 'phone')
         witgets = {
             'email': forms.EmailInput()
         }
