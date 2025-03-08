@@ -393,3 +393,39 @@ def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
     return redirect('login')
+
+@login_required
+def ambientes_list(request):
+    ambientes = Ambiente.objects.all()
+    return render(request, 'ambientes/amb_list.html', {'ambientes': ambientes})
+
+@login_required
+def ambiente_create(request):
+    if request.method == 'POST':
+        form = AmbienteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ambientes_list')
+        else:
+            form = AmbienteForm()
+        return render(request, 'ambientes/amb_form.html', {'form': form})
+
+@login_required
+def ambiente_edit(request, pk):
+    ambiente = Ambiente.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = AmbienteForm(request.POST, instance=ambiente)
+        if form.is_valid():
+            form.save()
+            return redirect('ambientes_list')
+        else:
+            form = AmbienteForm(instance=ambiente)
+        return render(request, 'ambientes/amb_form.html', {'form': form})
+
+@login_required
+def ambiente_delete(request, pk):
+    if request.method == 'POST':
+        ambiente = Ambiente.objects.get(pk=pk)
+        ambiente.delete()
+        return redirect('ambientes_list')
+    return render(request, 'ambientes/amb_confirm_delete.html', {'ambiente': ambiente})
