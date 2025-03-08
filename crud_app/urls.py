@@ -53,7 +53,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register, name='register'),
     path('ambientes/', views.ambientes_list, name='ambientes_list'),
-    path('ambientes/create/', views.ambientes_create, name='ambientes_create'),
-    path('ambientes/<int:pk>/edit/', views.ambientes_edit, name='ambientes_edit'),
-    path('ambientes/<int:pk>/delete/', views.ambientes_delete, name='ambientes_delete'),
+    path('ambientes/create/', views.ambiente_create, name='ambientes_create'),
+    path('ambientes/<int:pk>/edit/', views.ambiente_edit, name='ambientes_edit'),
+    path('ambientes/<int:pk>/delete/', views.ambiente_delete, name='ambientes_delete'),
 ]
