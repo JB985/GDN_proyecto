@@ -92,7 +92,7 @@ class NovedadForm(forms.ModelForm):
         archivo = self.cleaned_data['evidencia']
         if archivo:
             extension = os.path.splitext(archivo.name)[1].lower()
-            if extension not in ['.jpg', '.png', '.jpeg'] or ['.pdf', '.docx', 'doc']:
+            if extension not in ['.jpg', '.png', '.jpeg'] or ['.pdf', '.docx', '.doc']:
                 raise forms.ValidationError('Solo se permiten archivos de imagen o documentos')
             return archivo
         if os.path.exists(archivo.name):
