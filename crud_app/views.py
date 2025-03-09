@@ -428,7 +428,7 @@ def ambiente_create(request):
 
 @login_required
 def ambiente_edit(request, pk):
-    ambiente = Ambiente.objects.get(pk=pk)
+    ambiente = get_object_or_404(pk=pk)
     if request.method == 'POST':
         form = AmbienteForm(request.POST, instance=ambiente)
         if form.is_valid():
@@ -440,7 +440,7 @@ def ambiente_edit(request, pk):
 
 @login_required
 def ambiente_delete(request, pk):
-    ambiente = Ambiente.objects.get(pk=pk)
+    ambiente = get_object_or_404(pk=pk)
     if request.method == 'POST':
         ambiente.delete()
         return redirect('ambientes_list')
@@ -464,11 +464,11 @@ def novedades_create(request):
     return render(request, 'novedades/nov_create.html', {'form': form})
 
 def novedades_detail(request, pk):
-    novedad = Novedad.objects.get(pk=pk)
+    novedad = get_object_or_404(pk=pk)
     return render(request, 'novedades/nov_detail.html', {'novedad': novedad})
 
 def novedades_edit(request, pk):
-    novedad = Novedad.objects.get(pk=pk)
+    novedad = get_object_or_404(pk=pk)
     if request.method == 'POST':
         form = NovedadForm(request.POST, instance=novedad)
         if form.is_valid():
@@ -479,7 +479,7 @@ def novedades_edit(request, pk):
             return render(request, 'novedades/nov_edit.html', {'form': form})
 
 def novedades_delete(request, pk):
-    novedad = Novedad.objects.get(pk=pk)
+    novedad = get_object_or_404(pk=pk)
     if request.method == 'POST':
         novedad.delete()
         return redirect('novedades_list')
