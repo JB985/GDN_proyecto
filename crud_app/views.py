@@ -446,3 +446,42 @@ def ambiente_delete(request, pk):
         return redirect('ambientes_list')
     else:
         return render(request, 'ambientes/amb_confirm_delete.html', {'ambiente': ambiente})
+
+def novedades_list(request):
+    novedades = Novedad.objects.filter(user=request.user).order_by('fecha')
+    return render(request, 'novedades/nov_list.html', {'novedades': novedades})
+
+def novedades_create(request):
+    if request.method == 'POST':
+        form = NovedadForm(request.POST)
+        if form.is_valid():
+            novedad = form.save(commit=False)
+            novedad.user = request.user
+            novedad.save()
+            return redirect('novedades_list')
+    else:
+        form = NovedadForm()
+    return render(request, 'novedades/nov_form.html', {'form': form})
+
+def novedades_detail(request, pk):
+    novedad = Novedad.objects.get(pk=pk)
+    return render(request, 'novedades/nov_detail.html', {'novedad': novedad})
+
+def novedades_edit(request, pk):
+    novedad = Novedad.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = NovedadForm(request.POST, instance=novedad)
+        if form.is_valid():
+            form.save()
+            return redirect('novedades_list')
+        else:
+            form = NovedadForm(instance=novedad)
+            return render(request, 'novedades/nov_form.html', {'form': form})
+
+def novedades_delete(request, pk):
+    novedad = Novedad.objects.get(pk=pk)
+    if request.method == 'POST':
+        novedad.delete()
+        return redirect('novedades_list')
+    else:
+        return render(request, 'novedades/nov_confirm_delete.html', {'novedad': novedad})

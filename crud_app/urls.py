@@ -57,4 +57,9 @@ urlpatterns = [
     path('ambientes/create/', views.ambiente_create, name='ambientes_create'),
     path('ambientes/<int:pk>/edit/', views.ambiente_edit, name='ambientes_edit'),
     path('ambientes/<int:pk>/delete/', views.ambiente_delete, name='ambientes_delete'),
+    path('novedades/', views.novedades_list, name='novedades_list'),
+    path('novedades/create/', views.novedades_create, name='novedades_create'),
+    path('novedades/<int:pk>/edit/', views.novedades_edit, name='novedades_edit'),
+    path('novedades/<int:pk>/delete/', views.novedades_delete, name='novedades_delete'),
+    path('novedades/<int:pk>/detail/', views.novedades_detail, name='novedades_detail')
 ]
