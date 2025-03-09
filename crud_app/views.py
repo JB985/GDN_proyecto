@@ -461,7 +461,7 @@ def novedades_create(request):
             return redirect('novedades_list')
     else:
         form = NovedadForm()
-    return render(request, 'novedades/nov_form.html', {'form': form})
+    return render(request, 'novedades/nov_create.html', {'form': form})
 
 def novedades_detail(request, pk):
     novedad = Novedad.objects.get(pk=pk)
@@ -476,7 +476,7 @@ def novedades_edit(request, pk):
             return redirect('novedades_list')
         else:
             form = NovedadForm(instance=novedad)
-            return render(request, 'novedades/nov_form.html', {'form': form})
+            return render(request, 'novedades/nov_edit.html', {'form': form})
 
 def novedades_delete(request, pk):
     novedad = Novedad.objects.get(pk=pk)
