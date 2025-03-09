@@ -106,11 +106,17 @@ class Novedad(models.Model):
         ('Disciplinaria', 'Disciplinaria'),
         ('Ambiente', 'Ambiente')
     ]
+    ESTADOS = [
+        ('Pendiente', 'Pendiente'),
+        ('Resuelta', 'Resuelta'),
+        ('Cancelada', 'Cancelada')
+    ]
     titulo = models.CharField(max_length=100, null=False)
     descripcion = models.TextField(blank=True)
     fecha = models.DateField(auto_now_add=True)
     tipo_novedad = models.CharField(max_length=255, null=False, choices=TIPO_NOVEDAD, default='Academica')
     evidencia = models.FileField(upload_to='evidencias/')
+    estado = models.CharField(max_length=255, choices=ESTADOS, null=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, blank=True)
     
     def eliminar_archivo(self):

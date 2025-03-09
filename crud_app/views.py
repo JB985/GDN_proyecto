@@ -451,7 +451,7 @@ def novedades_list(request):
     novedades = Novedad.objects.filter(user=request.user).order_by('fecha')
     return render(request, 'novedades/nov_list.html', {'novedades': novedades})
 
-def novedad_create(request):
+def novedades_create(request):
     if request.method == "GET":
         return render(request, 'create_task.html', {"form": NovedadForm})
     else:
@@ -464,11 +464,11 @@ def novedad_create(request):
         except ValueError:
             return render(request, 'novedades/nov_create.html', {"form": NovedadForm, "error": "Error al crear la novedad."})
 
-def novedad_detail(request, pk):
+def novedades_detail(request, pk):
     novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
     return render(request, 'novedades/nov_detail.html', {'novedad': novedad})
 
-def novedad_edit(request, pk):
+def novedades_edit(request, pk):
     novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
     if request.method == "GET":
         form = NovedadForm(instance=novedad)
@@ -481,10 +481,16 @@ def novedad_edit(request, pk):
         except ValueError:
             return render(request, 'novedades/nov_edit.html', {"form": form, "novedad": novedad, "error": "Error al editar la novedad."})
 
-def novedad_delete(request, pk):
+def novedades_delete(request, pk):
     novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
     if request.method == "POST":
         novedad.delete()
         return redirect('novedades_list')
     else:
         return render(request, 'novedades/nov_confirm_delete.html', {'novedad': novedad})
+
+def novedades_completadas(request, pk):
+    novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
+    novedad.estado = 2
+    novedad.save()
+    return redirect('novedades_list')
