@@ -451,36 +451,39 @@ def novedades_list(request):
     novedades = Novedad.objects.filter(user=request.user).order_by('fecha')
     return render(request, 'novedades/nov_list.html', {'novedades': novedades})
 
-def novedades_create(request):
-    if request.method == 'POST':
-        form = NovedadForm(request.POST)
-        if form.is_valid():
-            novedad = form.save(commit=False)
-            novedad.user = request.user
-            novedad.save()
-            return redirect('novedades_list')
+def novedad_create(request):
+    if request.method == "GET":
+        return render(request, 'create_task.html', {"form": NovedadForm})
     else:
-        form = NovedadForm()
-    return render(request, 'novedades/nov_create.html', {'form': form})
+        try:
+            form = Novedad(request.POST)
+            new_nov = form.save(commit=False)
+            new_nov.user = request.user
+            new_nov.save()
+            return redirect('tasks')
+        except ValueError:
+            return render(request, 'novedades/nov_create.html', {"form": NovedadForm, "error": "Error al crear la novedad."})
 
-def novedades_detail(request, pk):
-    novedad = get_object_or_404(pk=pk)
+def novedad_detail(request, pk):
+    novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
     return render(request, 'novedades/nov_detail.html', {'novedad': novedad})
 
-def novedades_edit(request, pk):
-    novedad = get_object_or_404(pk=pk)
-    if request.method == 'POST':
-        form = NovedadForm(request.POST, instance=novedad)
-        if form.is_valid():
+def novedad_edit(request, pk):
+    novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
+    if request.method == "GET":
+        form = NovedadForm(instance=novedad)
+        return render(request, 'novedades/nov_edit.html', {"form": form, "novedad": novedad})
+    else:
+        try:
+            form = NovedadForm(request.POST, instance=novedad)
             form.save()
             return redirect('novedades_list')
-        else:
-            form = NovedadForm(instance=novedad)
-            return render(request, 'novedades/nov_edit.html', {'form': form})
+        except ValueError:
+            return render(request, 'novedades/nov_edit.html', {"form": form, "novedad": novedad, "error": "Error al editar la novedad."})
 
-def novedades_delete(request, pk):
-    novedad = get_object_or_404(pk=pk)
-    if request.method == 'POST':
+def novedad_delete(request, pk):
+    novedad = get_object_or_404(Novedad, pk=pk, user=request.user)
+    if request.method == "POST":
         novedad.delete()
         return redirect('novedades_list')
     else:
