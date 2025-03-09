@@ -52,6 +52,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register, name='register'),
+    path('users/<int:pk>/password/', views.change_password, name='change_password'),
     path('ambientes/', views.ambientes_list, name='ambientes_list'),
     path('ambientes/create/', views.ambiente_create, name='ambientes_create'),
     path('ambientes/<int:pk>/edit/', views.ambiente_edit, name='ambientes_edit'),
